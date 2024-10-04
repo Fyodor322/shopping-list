@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         int sizeArr = 8;
+        int productCount = 0;
         String[] shoppingList = new String[sizeArr];
         Scanner scanner = new Scanner(System.in);
 
@@ -20,26 +21,54 @@ public class Main {
             switch (actionNumber){
                 case 1:
                     String newProduct;
-                    int productCount = 0;
                     for (int i = 0; i < sizeArr; i++) {
                         if (productCount < 8 && shoppingList[i] == null){
                             System.out.println("Введите название нового товара");
                             scanner.nextLine();
                             newProduct = scanner.nextLine().replace(" ", "_");
-                            shoppingList[i] = newProduct;
-                            productCount++;
+                            boolean serchForDuplicates = true;
+                            for (int j = 0; j < sizeArr; j++) {
+                                if (newProduct.equals(shoppingList[j])) {
+                                    serchForDuplicates = false;
+                                    //break;
+                                }
+                            }
+                            if (serchForDuplicates){
+                                shoppingList[i] = newProduct;
+                                System.out.println("Товар " + newProduct + " успешно добавлен под номером " + (i+1));
+                                productCount++;
+                                break;
+                            }else {
+                                System.out.println("Такой товар уже существует под номером " + (i+1));
+                            }
                             break;
                         }else if(productCount == 8){
-                            System.out.println("К сожалению, мест в списке не осталось(");
+                            System.out.println("К сожалению, мест в списке не осталось. Пожалуйста, отложите покупку на следующий раз");
                         }
                     }
                     break;
                 case 2:
+                    if (productCount > 0){
+                        for (int i = 0; i < productCount; i++) {
+                            if (shoppingList[i] != null)
+                                System.out.println(i+1 + "." + shoppingList[i]);
+                        }
+                    }else {
+                        System.out.println("Список покупок пуст");
+                    }
+
+                    break;
                 case 3:
+                    for (int i = 0; i < productCount; i++) {
+                        shoppingList[i] = null;
+                    }
+                    productCount = 0;
+                    System.out.println("Список покупок пуст");
+                    break;
                 case 4:
+                    break;
                 default:
                     System.out.println("Неизвестная команда!");
-                    break;
             }
         }
     }
