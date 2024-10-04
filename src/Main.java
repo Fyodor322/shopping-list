@@ -26,6 +26,7 @@ public class Main {
                             sizeArr++;
                             String[] tempArr = new String[sizeArr];
                             System.arraycopy(shoppingList, 0, tempArr, 0, sizeArr - 1);
+                            shoppingList = tempArr;
                         }
                         if (shoppingList[i] == null){
                             System.out.println("Введите название нового товара");
@@ -43,7 +44,7 @@ public class Main {
                                 productCount++;
                                 break;
                             } else {
-                                System.out.println("Такой товар уже существует под номером " + (i + 1));
+                                System.out.println("Такой товар уже существует");
                             }
                             break;
                         }
@@ -68,7 +69,7 @@ public class Main {
                     System.out.println("Список покупок пуст");
                     break;
                 case 4:
-                    break;
+                    return;
                 default:
                     System.out.println("Неизвестная команда!");
             }
