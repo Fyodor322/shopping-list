@@ -22,7 +22,12 @@ public class Main {
                 case 1:
                     String newProduct;
                     for (int i = 0; i < sizeArr; i++) {
-                        if (productCount < 8 && shoppingList[i] == null){
+                        if (productCount >= sizeArr) {
+                            sizeArr++;
+                            String[] tempArr = new String[sizeArr];
+                            System.arraycopy(shoppingList, 0, tempArr, 0, sizeArr - 1);
+                        }
+                        if (shoppingList[i] == null){
                             System.out.println("Введите название нового товара");
                             scanner.nextLine();
                             newProduct = scanner.nextLine().replace(" ", "_");
@@ -30,20 +35,17 @@ public class Main {
                             for (int j = 0; j < sizeArr; j++) {
                                 if (newProduct.equals(shoppingList[j])) {
                                     serchForDuplicates = false;
-                                    //break;
                                 }
                             }
-                            if (serchForDuplicates){
+                            if (serchForDuplicates) {
                                 shoppingList[i] = newProduct;
-                                System.out.println("Товар " + newProduct + " успешно добавлен под номером " + (i+1));
+                                System.out.println("Товар " + newProduct + " успешно добавлен под номером " + (i + 1));
                                 productCount++;
                                 break;
-                            }else {
-                                System.out.println("Такой товар уже существует под номером " + (i+1));
+                            } else {
+                                System.out.println("Такой товар уже существует под номером " + (i + 1));
                             }
                             break;
-                        }else if(productCount == 8){
-                            System.out.println("К сожалению, мест в списке не осталось. Пожалуйста, отложите покупку на следующий раз");
                         }
                     }
                     break;
